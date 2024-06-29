@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://0kpx1n5ifo36"]
+
+[ext_resource type="Script" path="res://player3DSmooth.gd" id="1_0e0mv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4qdm7"]
+albedo_color = Color(1, 0.619608, 0.00784314, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_itac5"]
+material = SubResource("StandardMaterial3D_4qdm7")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yh1tn"]
+albedo_color = Color(1, 0.176471, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mqq36"]
+material = SubResource("StandardMaterial3D_yh1tn")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rk3vy"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_0e0mv")
+
+[node name="Pivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+
+[node name="Body" type="MeshInstance3D" parent="Pivot"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_itac5")
+skeleton = NodePath("../..")
+
+[node name="Nose" type="MeshInstance3D" parent="Pivot/Body"]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 1, 0, 0.515531, -0.450916)
+mesh = SubResource("BoxMesh_mqq36")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.3, 0)
+shape = SubResource("CapsuleShape3D_rk3vy")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.971068, 0.238805, 0, -0.238805, 0.971068, 0, 1.03776, 1.63453)
